@@ -1,0 +1,12 @@
+<meta meta charset=utf-8/>
+<div class="modal-header alert" ng-class="{'alert-info': data.tipo == 'C','alert-success': data.tipo == 'S','alert-danger':data.tipo == 'E'}">
+            <h3 class="modal-title" id="modal-title">{{data.titulo}}</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+           <span ng-bind-html = "data.message"></span>
+        </div>
+        <div class="modal-footer" ng-class="{'alert-info': data.tipo == 'C','alert-success': data.tipo == 'S','alert-danger':data.tipo == 'E'}">
+            <button ng-if="data.tipo == 'C'" class="btn btn-primary" type="button" ng-click="ok()">Si</button>
+            <button ng-if="data.tipo != 'C'" class="btn btn-primary" type="button" ng-click="cancel()">Aceptar</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancelar</button>
+        </div>

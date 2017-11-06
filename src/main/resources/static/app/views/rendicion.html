@@ -1,0 +1,95 @@
+<meta meta charset=utf-8/>
+<div class="panel panel-default" >	  
+	<div class="panel-body">
+		
+		<div class="alert alert-info" ng-if="codigo.codigoCuentadancia != undefined && codigo.codigoCuentadancia != null">
+			<span style="color:black;"><strong>Codigo:</strong> {{codigo.codigoCuentadancia}}</span><br>
+			<span style="color:black;"><strong>Nombre:</strong> {{codigo.descripcion}}</span>	  
+		</div>
+	   <div class="form-group" >
+	    <label class="control-label col-sm-2" for="email">Cuentadancia</label>
+	    <div class="col-sm-10">
+	     <input typeahead-on-select='onSelect($item, $model, $label)' id="tipeahead" type="text" ng-model="personaSeleccionada" placeholder="Escribir Nombre Cuentadante" uib-typeahead="cuentadante.descripcion for cuentadante in getCuentadantes($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control">
+            <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+	        <div ng-show="noResults">
+	            <i class="glyphicon glyphicon-remove"></i> No hay resultados para mostrar
+	        </div>
+	    </div>
+	  </div>
+	</div>
+	</div>
+
+<div class="panel panel-default" ng-if="data.cuentadante != undefined && data.cuentadante != null">	  
+	<form name="form" class="form-horizontal"> 
+	<div class="panel-body">	
+	  <div class="form-group" >
+	    <label class="control-label col-sm-2" for="email">Año</label>
+	    <div class="col-sm-10">
+	      <!--  <input type="number" class="form-control" maxlength="4" placeholder="Ingrese año"  ng-model = "data.anio" required/>-->
+	      <select class="form-control" ng-model = "data.anio" ng-init="callAnios()" required>
+		      	<option ng-value="undefined" selected>Seleccione un Año</option>
+				<option ng-repeat="a in anios" value="{{a}}">{{a}}</option>
+			</select>
+	    </div>
+	  </div>
+	  
+	  
+	   <div class="form-group">
+	    <label class="control-label col-sm-2" for="email">Mes</label>
+	    <div class="col-sm-10">
+	      <select class="form-control" ng-model = "data.mes" ng-disabled="data.anio == undefined" required>
+	      	<option ng-value="undefined" selected>Seleccione un Mes</option>
+			<option ng-repeat="m in meses" value="{{m.value}}">{{m.label}}</option>
+		</select>
+	    </div>
+	  </div>
+	  <div class="form-group" >
+		<label class="control-label col-sm-2" for="anios">Archivo Pdf</label>
+		<div class="col-sm-10">
+			<input type="file" class="form-control" name="file" id="myFile" onchange="angular.element(this).scope().fileChange(this.files)" accept=".pdf" valid-file required/>
+			<div class="alert alert-danger" ng-if="maxSizeError">
+			<span style="color:black;"><strong>Error: </strong> El Archivo Excede el limite establecido (5MB)</span>
+		</div>
+		</div>
+	</div>		
+	
+	</div>
+	<div class="panel-footer text-right">
+		<input type="button" class="btn btn-success" ng-click="open('C','')" ng-disabled="form.$invalid" value="Guardar Registro"/>
+	</div>
+	</form>
+</div>
+<hr>
+<div class="panel panel-default" ng-init="listar()">
+	<div class="panel-body">
+		<table ng-table="userTable" class="table table-striped editable-table demoTable" show-filter="true" ng-form="tableForm"
+		demo-tracked-table="tableTracker">
+			 <colgroup>
+	          <col width="10%" />
+	          <col width="60%" />
+	          <col width="10%" />
+	          <col width="10%" />
+	          <col width="10%" />
+	  
+	        </colgroup>
+			<tr ng-repeat="rendicion in $data"  ng-form="rowForm" demo-tracked-table-row="venta" edit="venta.edit">
+				<td class="text-center" title="'Rendicion'">
+					<label>{{rendicion.idRendicion}}</label></td>
+				<td class="text-left" title="'Codigo Cuentadancia'">
+					<label>{{rendicion.idCuentadancia.descripcion}}</label></td>
+				<td class="text-center" title="'Mes'">
+					<label>{{evalMonth(rendicion.mes)}}</label></td>
+				<td class="text-center" title="'Anio'">
+					<label>{{rendicion.anio}}</label></td>
+				<td class="text-center" title="'Fecha Ingreso'">
+					<label>{{rendicion.fechaIngresa | date:'dd/MM/yyyy'}}</label></td>
+				<td class="text-center" title="'Archivo'">				
+				 <a style="cursor:pointer;" ng-click="viewPdf(rendicion.idRendicion)"><span class="fa fa-file-pdf-o"></span></a>				
+				 <a style="cursor:pointer;" ng-click="downloadPdf(rendicion.idRendicion)"><span class="fa fa-download"></span></a>
+				 
+				</td>
+			</tr>
+		</table>
+	</div>
+
+</div>

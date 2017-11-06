@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head>
+        <meta charset="UTF-8" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Principal</title>
+        
+         <!-- jquery -->
+        <link rel="stylesheet" type="text/css" href="css/jquery/jquery-ui.min.css" ></link>
+    
+        <!-- bootstrap -->
+        <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap/css/bootstrap.min.css}" href="css/bootstrap/css/bootstrap.min.css" ></link>
+        <link rel="stylesheet" type="text/css"  th:href="@{/css/font-awesome/css/font-awesome.min.css}" href="css/bootstrap/css/bootstrap-theme.min.css" ></link>
+    
+        <!-- Autocomplete -->
+        <link rel="stylesheet" type="text/css" href="css/angularstrap/docs.min.css" ></link>
+        <link rel="stylesheet" type="text/css" href="css/angularstrap/libs.min.css" ></link>	
+                
+        <!-- Angular material -->
+        <link rel="stylesheet" type="text/css" href="css/angular/angular-material.css" ></link>	
+        
+        <!-- Angular Table -->
+        <link rel="stylesheet" type="text/css" href="css/angular/ng-table.min.css" ></link>
+        
+        <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css" ></link>
+        
+        <!-- Ionicons -->
+		  <link rel="stylesheet" href="css/Ionicons/css/ionicons.min.css" ></link>
+		  <!-- Theme style -->
+		  <link rel="stylesheet" href="css/AdminLTE.min.css" ></link>
+		  <!-- AdminLTE Skins. Choose a skin from the css/skins
+		       folder instead of downloading all of them to reduce the load. -->
+		  <link rel="stylesheet" href="css/skins/_all-skins.min.css" ></link>
+		  <link rel="stylesheet" href="css/styles.css" ></link>
+		  <style type="text/css">
+		  .editable-table > tbody > tr > td {
+			  padding: 4px
+			}
+			.editable-text {
+			  padding-left: 4px;
+			  padding-top: 4px;
+			  padding-bottom: 4px;
+			  display: inline-block;
+			}
+			.editable-table tbody > tr > td > .controls {
+			  //width: 100%
+			}
+			.editable-input {
+			  padding-left: 3px;
+			}
+			.editable-input.input-sm {
+			  height: 30px;
+			  font-size: 14px;
+			  padding-top: 4px;
+			  padding-bottom: }
+			  .green {
+			  	color:green;
+			  }
+			  .red{
+			  	color:red;
+			  }
+		  </style>
+    </head>
+    <body ng-app="modelApp" class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+    	<header class="main-header">
+		    <!-- Logo -->
+		    <a href="#!/" class="logo">
+		      <!-- mini logo for sidebar mini 50x50 pixels -->
+		      <span class="logo-mini"><img src="img/50x24px.png" /></span>
+		      <!-- logo for regular state and mobile devices -->
+		      <span class="logo-lg"><img src="img/124x50px.png" /></span>
+		    </a>
+		    <!-- Header Navbar: style can be found in header.less -->
+		    <nav class="navbar navbar-static-top">
+		      <!-- Sidebar toggle button-->
+		      <a style="cursor:pointer;" class="sidebar-toggle" data-toggle="push-menu" role="button">
+		        <span class="sr-only">Toggle navigation</span>
+		      </a>
+			<ul class="nav navbar-nav navbar-right" style="padding-right:1%;">
+			  <li><a href="#!/pass"><span class="fa fa-compass" style="color:black;"></span> Cambiar Contraseña </a></li>
+		      <li><a style="cursor:pointer;"><span class="fa fa-user" style="color:white;" sec:authentication="name"></span></a></li>
+		      <li><a th:href="@{/logout}"><span class="fa fa-sign-out" style="color:black;"></span>Logout</a></li>
+		    </ul>
+		    </nav>
+		  </header>
+		  
+		<aside class="main-sidebar">
+	    <!-- sidebar: style can be found in sidebar.less -->
+	    <section class="sidebar">
+	      <!-- Sidebar user panel -->
+	      <div class="user-panel">
+	      </div>
+	     
+	      <!-- sidebar menu: : style can be found in sidebar.less -->
+	      <ul class="sidebar-menu" data-widget="tree">
+	        <li class="header">Menu</li>
+	        <li class="treeview" sec:authorize="hasRole('ROLE_ADMIN')">
+	         <a href="#">
+	            <i class="fa fa-user-o"></i> <span>Mantenimiento Usuario</span>
+	            <span class="pull-right-container">
+	              <i class="fa fa-angle-left pull-right"></i>
+	            </span>
+	          </a>
+	        
+	          	<ul class="treeview-menu">	         
+		        <li>
+		          <a href="#!/usuario">
+		            <i class="fa fa-user-circle-o"></i> <span>Ingreso Usuario</span>
+		            <span class="pull-right-container">
+		              <!-- <small class="label pull-right bg-green">new</small> -->
+		            </span>
+		          </a>
+		        </li>
+		         <li>
+		          <a href="#!/role">
+		            <i class="fa fa-edit"></i> <span>Ingreso Roles</span>
+		            <span class="pull-right-container">
+		              <!-- <small class="label pull-right bg-green">new</small> -->
+		            </span>
+		          </a>
+		        </li>
+		         <li>
+		          <a href="#!/asignar">
+		            <i class="fa fa-external-link-square"></i> <span>Asignar UsuarioRole</span>
+		            <span class="pull-right-container">
+		              <!-- <small class="label pull-right bg-green">new</small> -->
+		            </span>
+		          </a>
+		        </li>
+	          </ul>
+	        </li>
+	        
+	       <li class="treeview"  sec:authorize="hasRole('ROLE_LECTURA') or hasRole('ROLE_ESCRITURA')">
+	          <a href="#">
+	            <i class="fa fa-share"></i> <span>Rendiciones Provicionales</span>
+	            <span class="pull-right-container">
+	              <i class="fa fa-angle-left pull-right"></i>
+	            </span>
+	          </a>
+	          <ul class="treeview-menu">
+	       
+	        <li sec:authorize="hasRole('ROLE_ESCRITURA')">
+	          <a href="#!/ingreso">
+	            <i class="fa fa-edit"></i> <span>Ingreso</span>
+	            <span class="pull-right-container">
+	              <!-- <small class="label pull-right bg-green">new</small> -->
+	            </span>
+	          </a>
+	        </li>
+	        <li sec:authorize="hasRole('ROLE_LECTURA')">
+	          <a href="#!/consulta">
+	            <i class="fa fa-edit"></i> <span>Consulta</span>
+	            <span class="pull-right-container">
+	              <!-- <small class="label pull-right bg-green">new</small> -->
+	            </span>
+	          </a>
+	        </li>
+	          </ul>
+	        </li> 
+	      </ul>
+	    </section>
+	    <!-- /.sidebar -->
+	  </aside>
+	  
+	  <div class="content-wrapper">
+	    <!-- Main content -->
+	    <section class="content">
+	   		 <div ng-view=""></div>
+	    </section>
+    <!-- /.content -->
+  </div>
+    </div>
+        
+         <!-- Angularjs -->
+        <script src="js/angular/angular.min.js" ></script>
+        <script src="js/angular/angular-route.min.js" ></script>
+        <script src="js/angular/angular-animate.min.js" ></script>
+        <script src="js/angular/angular-aria.js" ></script>
+        <script src="js/angular/angular-material.js" ></script>
+        
+        <!-- jquery y bootstrap -->
+        <script src="js/jquery/jquery-1.11.3.min.js" ></script>
+        <script src="js/jquery/jquery-ui.min.js" ></script>
+        <script src="js/bootstrap/bootstrap.min.js" ></script>
+        <script src="js/adminlte.min.js" ></script>
+        
+        <script src="js/angular-strap/angular-strap.js" ></script>
+        <script src="js/angular-strap/angular-strap.tpl.js" ></script>
+                <!-- Datepicker -->
+        <script src="js/angular-strap/datepicker.js" ></script>
+        <script src="js/angular-strap/datepicker.tpl.js" ></script>
+        
+       
+        <!-- momentjs -->	
+        <script src="js/moment/moment-with-locales.js" ></script>
+        <script src="js/moment/moment-precise-range.js" ></script>
+         <script src="js/moment/angular-moment.min.js" ></script>
+        
+         <!-- Componentes de Bootstrap escritos en angularjs -->
+        <script src="js/ui-bootstrap/ui-bootstrap-tpls-0.14.3.min.js" ></script>
+        
+        <!-- <script type="text/javascript" src="js/google/ng-google-chart.min.js" ></script>-->
+        
+          <!-- Angular Table -->
+         <script src="js/angular/ng-table.min.js" ></script>
+         <script src="js/lodash.min.js" ></script>
+                
+        <script src="js/angular/picklist.js" ></script>
+         <!-- Configuracion de angular y ruteos -->
+        <script src="app/app.js" ></script>
+        
+        <!--  Configuracion de controladores -->
+        <script src="app/controllers/rendicionController.js" ></script>
+        <script src="app/controllers/consultaController.js" ></script>
+        <script src="app/controllers/usuarioController.js" ></script>
+        <script src="app/controllers/roleController.js" ></script>
+        <script src="app/controllers/modalController.js" ></script>
+        <script src="app/controllers/asignController.js" ></script>
+        <script src="app/controllers/passwordController.js" ></script>
+        <script src="app/controllers/modeloController.js" ></script>                       
+        
+        <!--  Configuracion de servicios -->
+        <script src="app/services/rendicionService.js" ></script>
+        <script src="app/services/consultaService.js" ></script>
+        <script src="app/services/usuarioService.js" ></script>
+        <script src="app/services/roleService.js" ></script>
+        <script src="app/services/asignService.js" ></script>
+        
+        <!--  Directivas  -->
+         <script type="text/javascript" src="app/directives/trackedTable.js" ></script>
+		<script type="text/javascript" src="app/directives/trackedTableCell.js" ></script>
+		<script type="text/javascript" src="app/directives/trackedTableRow.js" ></script>
+		
+		
+    </body>
+</html>
